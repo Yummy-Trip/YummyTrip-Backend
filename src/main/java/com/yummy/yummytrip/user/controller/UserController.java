@@ -16,8 +16,7 @@ public class UserController {
 
     @PostMapping("/signup")
     public ResponseEntity signup(@RequestBody JoinDto joinUser){
-        System.out.println("joinUser = " + joinUser);
-
+        service.signUp(joinUser);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 }
