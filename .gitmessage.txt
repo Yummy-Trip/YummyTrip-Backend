@@ -1,0 +1,15 @@
+## Commit Convention
+`{:이모지:} 커밋 메시지 (#{issue number})`
+
+#### 예시
+:sparkles: 수정 버튼 만들기 (#1)
+
+</br></br>
+
+## Commit Tag
+|아이콘|유형|설명|
+|:--:|:--:|:--:|
+|:sparkles:|새 기능|New feature or request|
+|:memo:|문서 추가/수정|Improvements or additions to documentation|
+|:recycle:|코드 리팩토링|Refactor code.|
+|:bug:|버그|Something isn't working|
