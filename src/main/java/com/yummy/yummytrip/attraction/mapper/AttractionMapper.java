@@ -5,11 +5,12 @@ import com.yummy.yummytrip.attraction.model.GetAttractionResponseDto;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Optional;
 
 @Mapper
 public interface AttractionMapper {
 
-    public GetAttractionResponseDto getAttractionById(Long attractionId);
+    public Optional<GetAttractionResponseDto> getAttractionById(Long attractionId);
 
     public List<GetAttractionResponseDto> getAttractionByFiltering(AttractionSearchRequestDto searchDto);
 }
