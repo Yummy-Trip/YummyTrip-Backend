@@ -3,7 +3,7 @@ package com.yummy.yummytrip.user.model;
 import com.yummy.yummytrip.util.Role;
 import lombok.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -15,7 +15,7 @@ public class  UserDto {
     private String username;
     private String email;
     private String password;
-    private LocalDateTime birth;
+    private LocalDate birth;
     private Role usertype;
     //private boolean isExpired;
 }
