@@ -53,7 +53,7 @@ public class SecurityConfig {
 
         http
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/signup").permitAll()
+                        .requestMatchers("/signup", "/login", "/").permitAll()
                         .anyRequest().authenticated());
 
         //AuthenticationManager()와 JWTUtil 인수 전달
@@ -63,6 +63,7 @@ public class SecurityConfig {
         http
                 .sessionManagement((session) -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+
 
         return http.build();
     }

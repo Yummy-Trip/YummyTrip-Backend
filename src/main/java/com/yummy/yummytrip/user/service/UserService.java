@@ -2,6 +2,7 @@ package com.yummy.yummytrip.user.service;
 
 import com.yummy.yummytrip.exception.EmptyDataException;
 import com.yummy.yummytrip.exception.ErrorCode;
+import com.yummy.yummytrip.exception.ExistDataException;
 import com.yummy.yummytrip.user.mapper.UserMapper;
 import com.yummy.yummytrip.user.model.JoinDto;
 import com.yummy.yummytrip.user.model.UserDto;
@@ -20,7 +21,7 @@ public class UserService {
         UserDto findUser = mapper.findByEmail(joinUser.getEmail());
 
         if (findUser != null) {
-            throw new EmptyDataException(ErrorCode.DATA_NOT_EXISTS);
+            throw new ExistDataException(ErrorCode.DATA_EXISTS);
         }
 
         UserDto user = UserDto.builder()
