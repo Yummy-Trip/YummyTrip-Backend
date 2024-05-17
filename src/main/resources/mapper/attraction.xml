@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yummy.yummytrip.attraction.mapper.AttractionMapper">
+
+    <!-- public Optional<GetAttractionResponseDto> getAttractionById(Long attractionId); -->
+    <select id="getAttractionById" parameterType="java.lang.Long" resultType="GetAttractionResponseDto">
+        SELECT * FROM attraction_info WHERE attraction_id = #{attractionId}
+    </select>
+
+    <!-- public List<GetAttractionResponseDto> getAttractionByFiltering(AttractionSearchRequestDto searchDto); -->
+    <select id="getAttractionByFiltering" parameterType="AttractionSearchRequestDto" resultType="GetAttractionResponseDto">
+        SELECT * FROM attraction_info
+        WHERE 1=1
+        <if test="sidoCode != 0">
+            AND sido_code = #{sidoCode}
+        </if>
+        <if test="gugunCode != 0">
+            AND gugun_code = #{gugunCode}
+        </if>
+        <if test="attractionTypeId != 0">
+            AND attractiontype_id = #{attractionTypeId}
+        </if>
+        <if test="input != null and input != ''">
+            AND (title LIKE CONCAT('%', #{input}, '%')
+            OR addr1 LIKE CONCAT('%', #{input}, '%')
+            OR addr2 LIKE CONCAT('%', #{input}, '%')
+            OR tel LIKE CONCAT('%', #{input}, '%'))
+        </if>
+    </select>
+</mapper>
