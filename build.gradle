@@ -33,6 +33,12 @@ dependencies {
 	testImplementation 'org.springframework.security:spring-security-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
+	implementation 'io.swagger.core.v3:swagger-annotations:2.2.21'
+
+	implementation 'org.springframework.data:spring-data-commons:3.2.2'
+
+
+
 	implementation 'io.jsonwebtoken:jjwt-api:0.12.3'
 	implementation 'io.jsonwebtoken:jjwt-impl:0.12.3'
 	implementation 'io.jsonwebtoken:jjwt-jackson:0.12.3'
