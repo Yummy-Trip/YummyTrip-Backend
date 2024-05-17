@@ -1,10 +1,13 @@
 package com.yummy.yummytrip.attraction.controller;
 
+import com.yummy.yummytrip.attraction.model.AttractionSearchRequestDto;
 import com.yummy.yummytrip.attraction.model.GetAttractionResponseDto;
 import com.yummy.yummytrip.attraction.service.AttractionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -18,5 +21,12 @@ public class AttractionController {
     @GetMapping("/{attractionId}")
     public ResponseEntity<GetAttractionResponseDto> getAttractionById(@PathVariable("attractionId") Long attractionId){
         return ResponseEntity.ok(attractionService.getAttractionById(attractionId));
+    }
+
+    @GetMapping("/get")
+    public ResponseEntity<List<GetAttractionResponseDto>> getAttractionByFiltering(
+            @RequestBody AttractionSearchRequestDto searchDto
+    ){
+        return ResponseEntity.ok(attractionService.getAttractionByFiltering(searchDto));
     }
 }
