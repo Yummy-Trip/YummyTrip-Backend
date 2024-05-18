@@ -13,4 +13,8 @@
     <select id="findByEmail" parameterType="String" resultType="UserDto">
         select * from user where email = #{email}
     </select>
+
+    <delete id="signOut" parameterType="String">
+        delete from user where email = #{email}
+    </delete>
 </mapper>

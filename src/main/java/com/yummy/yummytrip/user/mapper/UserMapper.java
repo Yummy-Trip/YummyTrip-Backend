@@ -8,4 +8,6 @@ public interface UserMapper {
     public void signUp(UserDto user);
 
     public UserDto findByEmail(String email);
+
+    public void signOut(String email);
 }
