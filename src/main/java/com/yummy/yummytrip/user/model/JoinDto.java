@@ -9,7 +9,6 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-@NoArgsConstructor
 public class JoinDto {
     private String username;
     private String email;
