@@ -8,6 +8,8 @@ import com.yummy.yummytrip.notice.model.NoticeCreateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 @RequiredArgsConstructor
@@ -16,6 +18,14 @@ public class NoticeService {
 
     public Boolean createNotice(NoticeCreateRequestDto requestDto) {
         return mapper.insertNotice(requestDto) > 0;
+    }
+
+    public GetNoticeResponseDto getNoticeById(Long noticeId) {
+        return findNotice(noticeId);
+    }
+
+    public List<GetNoticeResponseDto> getNotices() {
+        return mapper.selectAllNotices();
     }
 
     private GetNoticeResponseDto findNotice(Long noticeId) {
