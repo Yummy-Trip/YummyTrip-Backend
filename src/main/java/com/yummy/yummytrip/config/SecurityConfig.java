@@ -70,7 +70,10 @@ public class SecurityConfig {
 
         http
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/signup", "/login", "/").permitAll()
+                        .requestMatchers( "/",
+                                "/signup",
+                                "/login",
+                                "/api/notice/**").permitAll()
                         .anyRequest().authenticated());
         http
                 .addFilterBefore(new JWTFilter(jwtUtil), LoginFilter.class);
