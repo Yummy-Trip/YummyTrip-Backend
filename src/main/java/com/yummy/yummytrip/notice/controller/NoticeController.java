@@ -44,4 +44,12 @@ public class NoticeController {
     ){
         return ResponseEntity.ok(noticeService.updateNotice(requestDto));
     }
+
+    @DeleteMapping("/delete/{noticeId}")
+    public ResponseEntity<Void> deleteNotice(
+            @PathVariable("noticeId") Long noticeId
+    ){
+        noticeService.deleteNotice(noticeId);
+        return ResponseEntity.ok().build();
+    }
 }
