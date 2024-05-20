@@ -4,6 +4,7 @@ import com.yummy.yummytrip.exception.CustomException;
 import com.yummy.yummytrip.exception.ErrorCode;
 import com.yummy.yummytrip.notice.mapper.NoticeMapper;
 import com.yummy.yummytrip.notice.model.GetNoticeResponseDto;
+import com.yummy.yummytrip.notice.model.NoticeCreateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,10 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class NoticeService {
     private final NoticeMapper mapper;
+
+    public Boolean createNotice(NoticeCreateRequestDto requestDto) {
+        return mapper.insertNotice(requestDto) > 0;
+    }
 
     private GetNoticeResponseDto findNotice(Long noticeId) {
         return mapper.getNoticeById(noticeId)
