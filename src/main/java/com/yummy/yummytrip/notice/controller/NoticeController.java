@@ -49,7 +49,8 @@ public class NoticeController {
     public ResponseEntity<Long> updateNotice(
             @RequestBody NoticeUpdateRequestDto requestDto
     ){
-        return ResponseEntity.ok(noticeService.updateNotice(requestDto));
+        noticeService.updateNotice(requestDto);
+        return ResponseEntity.ok().build();
     }
 
     @Operation(summary = "Delete notice By noticeId", description = "공지사항 삭제")
