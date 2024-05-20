@@ -2,6 +2,7 @@ package com.yummy.yummytrip.notice.controller;
 
 import com.yummy.yummytrip.notice.model.GetNoticeResponseDto;
 import com.yummy.yummytrip.notice.model.NoticeCreateRequestDto;
+import com.yummy.yummytrip.notice.model.NoticeUpdateRequestDto;
 import com.yummy.yummytrip.notice.service.NoticeService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -35,5 +36,12 @@ public class NoticeController {
     @GetMapping("/get")
     public ResponseEntity<List<GetNoticeResponseDto>> getNotices(){
         return ResponseEntity.ok(noticeService.getNotices());
+    }
+
+    @PostMapping("/upadate")
+    public ResponseEntity<Long> updateNotice(
+            @RequestBody NoticeUpdateRequestDto requestDto
+    ){
+        return ResponseEntity.ok(noticeService.updateNotice(requestDto));
     }
 }
