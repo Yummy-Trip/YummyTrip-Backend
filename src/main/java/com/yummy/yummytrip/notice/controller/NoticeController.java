@@ -1,5 +1,6 @@
 package com.yummy.yummytrip.notice.controller;
 
+import com.yummy.yummytrip.notice.model.GetNoticeResponseDto;
 import com.yummy.yummytrip.notice.model.NoticeCreateRequestDto;
 import com.yummy.yummytrip.notice.service.NoticeService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -22,5 +23,12 @@ public class NoticeController {
             @RequestBody NoticeCreateRequestDto requestDto
     ){
         return ResponseEntity.ok(noticeService.createNotice(requestDto));
+    }
+
+    @GetMapping("/{noticeId}")
+    public ResponseEntity<GetNoticeResponseDto> getNoticeById(
+            @PathVariable("noticeId") Long noticeId
+    ){
+        return ResponseEntity.ok(noticeService.getNoticeById(noticeId));
     }
 }
