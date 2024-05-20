@@ -7,6 +7,7 @@ import com.yummy.yummytrip.exception.InvalidPasswordException;
 import com.yummy.yummytrip.user.mapper.UserMapper;
 import com.yummy.yummytrip.user.model.CustomUserDetails;
 import com.yummy.yummytrip.user.model.JoinDto;
+import com.yummy.yummytrip.user.model.UpdateDto;
 import com.yummy.yummytrip.user.model.UserDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -14,6 +15,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Random;
+
+import static com.yummy.yummytrip.util.PasswordUtils.DATA_FOR_RANDOM_STRING;
+import static com.yummy.yummytrip.util.PasswordUtils.LENGTH;
 
 @Service
 @RequiredArgsConstructor
@@ -46,5 +52,43 @@ public class UserService {
             throw new InvalidPasswordException(ErrorCode.INVALID_PASSWORD);
         }
         mapper.signOut(email);
+    }
+  
+    public void modify(UpdateDto updateDto) {
+        updateDto.setPassword(encoder.encode(updateDto.getPassword()));
+        mapper.update(updateDto);
+    }
+
+    public String findEmail(UserDto userDto) {
+        UserDto findUser = mapper.findEmail(userDto);
+
+        if (findUser == null) {
+            throw new EmptyDataException(ErrorCode.DATA_NOT_EXISTS);
+        }
+
+        return findUser.getEmail();
+    }
+
+    public String findPassword(UserDto userDto) {
+        UserDto findUser = mapper.findPassword(userDto);
+        if (findUser == null) {
+            throw new EmptyDataException(ErrorCode.DATA_NOT_EXISTS);
+        }
+        String newPassword = generateTemporaryPassword();
+        findUser.setPassword(encoder.encode(generateTemporaryPassword()));
+        mapper.updatePassword(findUser);
+        return newPassword;
+    }
+
+    public String generateTemporaryPassword() {
+        Random random = new Random();
+        StringBuilder sb = new StringBuilder(LENGTH);
+
+        for (int i = 0; i < LENGTH; i++) {
+            int rndCharAt = random.nextInt(DATA_FOR_RANDOM_STRING.length());
+            char rndChar = DATA_FOR_RANDOM_STRING.charAt(rndCharAt);
+            sb.append(rndChar);
+        }
+        return sb.toString();
     }
 }
