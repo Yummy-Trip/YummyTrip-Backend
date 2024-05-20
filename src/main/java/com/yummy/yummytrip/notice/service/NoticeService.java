@@ -5,6 +5,7 @@ import com.yummy.yummytrip.exception.ErrorCode;
 import com.yummy.yummytrip.notice.mapper.NoticeMapper;
 import com.yummy.yummytrip.notice.model.GetNoticeResponseDto;
 import com.yummy.yummytrip.notice.model.NoticeCreateRequestDto;
+import com.yummy.yummytrip.notice.model.NoticeUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +27,14 @@ public class NoticeService {
 
     public List<GetNoticeResponseDto> getNotices() {
         return mapper.selectAllNotices();
+    }
+
+    public void updateNotice(NoticeUpdateRequestDto requestDto) {
+        mapper.updateNotice(requestDto);
+    }
+
+    public void deleteNotice(Long noticeId) {
+        mapper.deleteNotice(noticeId);
     }
 
     private GetNoticeResponseDto findNotice(Long noticeId) {
