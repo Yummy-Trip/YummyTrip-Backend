@@ -3,11 +3,16 @@ package com.yummy.yummytrip.user.service;
 import com.yummy.yummytrip.exception.EmptyDataException;
 import com.yummy.yummytrip.exception.ErrorCode;
 import com.yummy.yummytrip.exception.ExistDataException;
+import com.yummy.yummytrip.exception.InvalidPasswordException;
 import com.yummy.yummytrip.user.mapper.UserMapper;
+import com.yummy.yummytrip.user.model.CustomUserDetails;
 import com.yummy.yummytrip.user.model.JoinDto;
 import com.yummy.yummytrip.user.model.UpdateDto;
 import com.yummy.yummytrip.user.model.UserDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -41,6 +46,14 @@ public class UserService {
         mapper.signUp(user);
     }
 
+    public void signOut(String email, String password){
+        UserDto findUser = mapper.findByEmail(email);
+        if (!encoder.matches(password, findUser.getPassword())) {
+            throw new InvalidPasswordException(ErrorCode.INVALID_PASSWORD);
+        }
+        mapper.signOut(email);
+    }
+  
     public void modify(UpdateDto updateDto) {
         updateDto.setPassword(encoder.encode(updateDto.getPassword()));
         mapper.update(updateDto);

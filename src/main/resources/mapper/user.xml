@@ -9,11 +9,14 @@
         values (#{username}, #{email}, #{password}, #{birth}, #{usertype})
     </insert>
 
-
     <select id="findByEmail" parameterType="String" resultType="UserDto">
         select * from user where email = #{email}
     </select>
 
+    <delete id="signOut" parameterType="String">
+        delete from user where email = #{email}
+    </delete>
+  
     <update id="update" parameterType="UpdateDto">
         update user set username = #{username}, password = #{password}, birth = #{birth}, userType = #{usertype}
         where email = #{email}

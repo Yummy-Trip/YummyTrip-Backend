@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.catalina.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -26,6 +27,15 @@ public class UserController {
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
+    @PostMapping("/signout")
+    public ResponseEntity signout(HttpServletRequest request, @RequestBody Map<String, String> map){
+        String authorization = request.getHeader("Authorization");
+        String token = authorization.split(" ")[1];
+        String email = jwtUtil.getUsername(token);
+        service.signOut(email, map.get("password"));
+        return new ResponseEntity(HttpStatus.OK);
+    }
+  
     @PatchMapping("/user")
     public ResponseEntity modify(HttpServletRequest request, @RequestBody UpdateDto updateDto) {
         String authorization = request.getHeader("Authorization");

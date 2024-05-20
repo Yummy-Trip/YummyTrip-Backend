@@ -10,6 +10,8 @@ public interface UserMapper {
 
     public UserDto findByEmail(String email);
 
+    public void signOut(String email);
+
     void update(UpdateDto updateDto);
 
     UserDto findEmail(UserDto userDto);
