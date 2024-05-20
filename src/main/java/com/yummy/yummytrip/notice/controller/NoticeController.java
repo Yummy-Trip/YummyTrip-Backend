@@ -31,4 +31,9 @@ public class NoticeController {
     ){
         return ResponseEntity.ok(noticeService.getNoticeById(noticeId));
     }
+
+    @GetMapping("/get")
+    public ResponseEntity<List<GetNoticeResponseDto>> getNotices(){
+        return ResponseEntity.ok(noticeService.getNotices());
+    }
 }
