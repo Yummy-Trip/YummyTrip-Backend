@@ -13,4 +13,21 @@
     <select id="findByEmail" parameterType="String" resultType="UserDto">
         select * from user where email = #{email}
     </select>
+
+    <update id="update" parameterType="UpdateDto">
+        update user set username = #{username}, password = #{password}, birth = #{birth}, userType = #{usertype}
+        where email = #{email}
+    </update>
+
+    <select id="findEmail" parameterType="UserDto" resultType="UserDto">
+        select * from user where username = #{username} and birth = #{birth}
+    </select>
+
+    <select id="findPassword" parameterType="UserDto" resultType="UserDto">
+        select * from user where username = #{username} and birth = #{birth} and email = #{email}
+    </select>
+
+    <update id="updatePassword" parameterType="UserDto">
+        update user set password = #{password} where email = #{email}
+    </update>
 </mapper>
