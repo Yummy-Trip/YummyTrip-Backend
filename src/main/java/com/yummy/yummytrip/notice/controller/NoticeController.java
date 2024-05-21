@@ -6,6 +6,7 @@ import com.yummy.yummytrip.notice.model.NoticeUpdateRequestDto;
 import com.yummy.yummytrip.notice.service.NoticeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +26,7 @@ public class NoticeController {
     @Operation(summary = "Add notice.", description = "공지사항 작성")
     @PostMapping("/add")
     public ResponseEntity<Boolean> createNotice(
-            @RequestBody NoticeCreateRequestDto requestDto
+            @RequestBody @Valid NoticeCreateRequestDto requestDto
     ){
         return ResponseEntity.ok(noticeService.createNotice(requestDto));
     }
@@ -44,10 +45,10 @@ public class NoticeController {
         return ResponseEntity.ok(noticeService.getNotices());
     }
 
-    @Operation(summary = "Update notice By noticeId", description = "공지사항 정보 전체 조회")
-    @PostMapping("/upadate")
+    @Operation(summary = "Update notice By noticeId", description = "공지사항 수정")
+    @PutMapping("/upadate")
     public ResponseEntity<Long> updateNotice(
-            @RequestBody NoticeUpdateRequestDto requestDto
+            @RequestBody @Valid NoticeUpdateRequestDto requestDto
     ){
         noticeService.updateNotice(requestDto);
         return ResponseEntity.ok().build();
