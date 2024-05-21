@@ -24,5 +24,5 @@ public class GetAttractionResponseDto {
     private int readCount;
     private BigDecimal latitude;
     private BigDecimal longitude;
-    private String mLevel;
+    private String mlevel;
 }
