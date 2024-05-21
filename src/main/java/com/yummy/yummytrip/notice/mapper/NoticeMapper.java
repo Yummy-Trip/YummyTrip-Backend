@@ -1,7 +1,6 @@
 package com.yummy.yummytrip.notice.mapper;
 
 import com.yummy.yummytrip.notice.model.GetNoticeResponseDto;
-import com.yummy.yummytrip.notice.model.NoticeCreateMapperDto;
 import com.yummy.yummytrip.notice.model.NoticeUpdateRequestDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
