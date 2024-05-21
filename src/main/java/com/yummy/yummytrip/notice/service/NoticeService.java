@@ -40,10 +40,12 @@ public class NoticeService {
     }
 
     public void updateNotice(NoticeUpdateRequestDto requestDto) {
+        findNotice(requestDto.getNoticeId());
         noticeMapper.updateNotice(requestDto);
     }
 
     public void deleteNotice(Long noticeId) {
+        findNotice(noticeId);
         noticeMapper.deleteNotice(noticeId);
     }
 
