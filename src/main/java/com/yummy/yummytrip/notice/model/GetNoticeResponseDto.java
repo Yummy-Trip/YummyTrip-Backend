@@ -16,5 +16,4 @@ public class GetNoticeResponseDto {
     private String content;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
-
 }
