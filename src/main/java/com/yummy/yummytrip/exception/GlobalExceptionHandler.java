@@ -24,4 +24,13 @@ public class GlobalExceptionHandler {
                 .message(errorCode.getMessage())
                 .build());
     }
+
+    @ExceptionHandler(CustomException.class)
+    public ResponseEntity<ErrorResponse> handleCustomException(CustomException e) {
+        ErrorResponse errorResponse = new ErrorResponse(e.getErrorCode(), e.getMessage());
+        return ResponseEntity.status(e.getErrorCode().getHttpStatus()).body(ErrorResponse.builder()
+                .code(e.getErrorCode().toString())
+                .message(errorResponse.getMessage())
+                .build());
+    }
 }

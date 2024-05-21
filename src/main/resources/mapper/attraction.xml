@@ -3,14 +3,31 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.yummy.yummytrip.attraction.mapper.AttractionMapper">
+    <resultMap id="attractionResultMap" type="GetAttractionResponseDto">
+        <id property="attractionId" column="attraction_id"/>
+        <result property="gugunCode" column="gugun_code"/>
+        <result property="sidoCode" column="sido_code"/>
+        <result property="attractiontypeId" column="attractiontype_id"/>
+        <result property="title" column="title"/>
+        <result property="addr1" column="addr1"/>
+        <result property="addr2" column="addr2"/>
+        <result property="zipcode" column="zipcode"/>
+        <result property="tel" column="tel"/>
+        <result property="firstImage" column="first_image"/>
+        <result property="firstImage2" column="first_image2"/>
+        <result property="readCount" column="readcount"/>
+        <result property="latitude" column="latitude"/>
+        <result property="longitude" column="longitude"/>
+        <result property="mlevel" column="mlevel"/>
+    </resultMap>
 
     <!-- public Optional<GetAttractionResponseDto> getAttractionById(Long attractionId); -->
-    <select id="getAttractionById" parameterType="java.lang.Long" resultType="GetAttractionResponseDto">
+    <select id="getAttractionById" parameterType="java.lang.Long" resultMap="attractionResultMap">
         SELECT * FROM attraction_info WHERE attraction_id = #{attractionId}
     </select>
 
     <!-- public List<GetAttractionResponseDto> getAttractionByFiltering(AttractionSearchRequestDto searchDto); -->
-    <select id="getAttractionByFiltering" parameterType="AttractionSearchRequestDto" resultType="GetAttractionResponseDto">
+    <select id="getAttractionByFiltering" parameterType="AttractionSearchRequestDto" resultMap="attractionResultMap">
         SELECT * FROM attraction_info
         WHERE 1=1
         <if test="sidoCode != 0">

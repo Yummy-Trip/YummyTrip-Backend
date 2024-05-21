@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yummy.yummytrip.notice.mapper.NoticeMapper">
+
+    <resultMap id="NoticeSearchResultMap" type="com.yummy.yummytrip.notice.model.GetNoticeResponseDto" >
+        <id column="notice_id" property="noticeId"/>
+        <result column="user_id" property="userId"/>
+        <result column="title" property="title"/>
+        <result column="content" property="content"/>
+        <result column="createdAt" property="createdAt"/>
+        <result column="modifiedAt" property="modifiedAt"/>
+    </resultMap>
+
+    <insert id="insertNotice" parameterType="com.yummy.yummytrip.notice.model.GetNoticeResponseDto" >
+        INSERT INTO notice (user_id, title, content, createdAt, modifiedAt)
+        VALUES (#{userId}, #{title}, #{content}, NOW(), NOW())
+    </insert>
+
+    <select id="getNoticeById" parameterType="long" resultMap="NoticeSearchResultMap">
+        SELECT notice_id, user_id, title, content, createdAt, modifiedAt
+        FROM notice
+        WHERE notice_id = #{noticeId}
+    </select>
+
+    <select id="selectAllNotices" resultMap="NoticeSearchResultMap">
+        SELECT notice_id, user_id, title, content, createdAt, modifiedAt
+        FROM notice
+        ORDER BY createdAt DESC
+    </select>
+
+    <update id="updateNotice" parameterType="com.yummy.yummytrip.notice.model.NoticeUpdateRequestDto">
+        UPDATE notice
+        SET title = #{title}, content = #{content}, modifiedAt = NOW()
+        WHERE notice_id = #{noticeId}
+    </update>
+
+    <delete id="deleteNotice" parameterType="long">
+        DELETE FROM notice
+        WHERE notice_id = #{noticeId}
+    </delete>
+</mapper>
