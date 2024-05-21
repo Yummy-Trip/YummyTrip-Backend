@@ -3,13 +3,22 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.yummy.yummytrip.user.mapper.UserMapper">
+    <resultMap id="userResultMap" type="UserDto">
+        <id property="userId" column="user_id"/>
+        <result property="username" column="username"/>
+        <result property="email" column="email"/>
+        <result property="password" column="password"/>
+        <result property="birth" column="birth"/>
+        <result property="usertype" column="userType"/>
+    </resultMap>
+
 
     <insert id="signUp" parameterType="UserDto">
         insert into user (username, email, password, birth, userType)
         values (#{username}, #{email}, #{password}, #{birth}, #{usertype})
     </insert>
 
-    <select id="findByEmail" parameterType="String" resultType="UserDto">
+    <select id="findByEmail" parameterType="String" resultMap="userResultMap">
         select * from user where email = #{email}
     </select>
 
