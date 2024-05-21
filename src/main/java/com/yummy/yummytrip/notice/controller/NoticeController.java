@@ -1,11 +1,15 @@
 package com.yummy.yummytrip.notice.controller;
 
+import com.yummy.yummytrip.exception.CustomException;
+import com.yummy.yummytrip.exception.ErrorCode;
 import com.yummy.yummytrip.notice.model.GetNoticeResponseDto;
 import com.yummy.yummytrip.notice.model.NoticeCreateRequestDto;
 import com.yummy.yummytrip.notice.model.NoticeUpdateRequestDto;
 import com.yummy.yummytrip.notice.service.NoticeService;
+import com.yummy.yummytrip.util.JWTUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -22,13 +26,21 @@ import java.util.List;
 @Tag(name = "2. Notice", description = "공지사항 정보 CRUD")
 public class NoticeController {
     private final NoticeService noticeService;
+    private final JWTUtil jwtUtil;
 
     @Operation(summary = "Add notice.", description = "공지사항 작성")
     @PostMapping("/add")
     public ResponseEntity<Boolean> createNotice(
+            HttpServletRequest servletRequest,
             @RequestBody @Valid NoticeCreateRequestDto requestDto
     ){
-        return ResponseEntity.ok(noticeService.createNotice(requestDto));
+        String authorization = servletRequest.getHeader("Authorization");
+        String token = authorization.split(" ")[1];
+        String role = jwtUtil.getRole(token);
+        if(role.equals("USER")){
+            throw new CustomException(ErrorCode.PERMISSION_NOT_GRANTED_ERROR, "공지사항은 관리자만 작성이 가능합니다. (NoticeController)");
+        }
+        return ResponseEntity.ok(noticeService.createNotice(requestDto, jwtUtil.getUsername(token)));
     }
 
     @Operation(summary = "Get information on just one notice.", description = "공지사항 정보 조회 (단일 아이디)")
